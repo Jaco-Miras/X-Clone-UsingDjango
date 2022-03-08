@@ -1,16 +1,21 @@
 {% extends 'home/home.html' %} {% block content %}
 <center>
-  <form method="POST" enctype="multipart/form-data">
+  <form class="max-w-screen-sm" method="POST" enctype="multipart/form-data">
     {% csrf_token %}
-    <table>
+    <div>
       {% for field in upload_form %}
-      <tr>
-        <th>{{field.label}}</th>
-        <td>{{field}}</td>
-      </tr>
+      <div class="border">
+        <h3 class="font-semibold my-2">{{field.label}}</h3>
+        {{field}}
+      </div>
       {% endfor %}
-    </table>
-    <button type="submit" class="btn btn-lg btn-success md-6">Upload</button>
+    </div>
+    <button
+      type="submit"
+      class="bg-blue-500 rounded-sm py-1 px-4 text-white w-full"
+    >
+      Upload
+    </button>
   </form>
 </center>
 {% endblock %}

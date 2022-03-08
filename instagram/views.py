@@ -21,3 +21,25 @@ def upload(request):
     else:
         return render(request, 'home/upload_form.html', {'upload_form': upload})
 
+def edit_post(request, post_id):
+    post_id = int(post_id)
+    try:
+        posts = Post.objects.get(id = post_id)   
+        post_form = PostCreate(request.POST or None, instance=posts)
+        # post_form = PostCreate(request.POST ,request.FILES )
+        
+        if post_form.is_valid():
+            post_form.save()
+            return redirect('index')
+        return render(request, 'home/upload_form.html', {'upload_form': post_form})
+    except Post.DoesNotExist:
+        return redirect('index')
+
+def delete_post(request, post_id):
+    post_id = int(post_id)
+    try:
+        posts = Post.objects.get(id = post_id)
+    except Post.DoesNotExist:
+        return redirect('index')
+    posts.delete()
+    return redirect('index')
