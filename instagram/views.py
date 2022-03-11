@@ -1,7 +1,7 @@
 from distutils.command.upload import upload
 from django.http import HttpResponse
 from django.shortcuts import redirect, render
-from .models import AddComments, Post
+from .models import Comment, Post
 from .forms import PostCreate, CommentCreate
 
 def index(request):
@@ -58,10 +58,10 @@ def comment_post(request):
         return render(request, 'home/comment_form.html', {'comment_form': comment})
 
 def delete_comment(request, comment_id):
-    comment_id = int(comment_id)
+    comment_id = (comment_id)
     try:
-        comment = AddComments.objects.get(id = comment_id)
-    except AddComments.DoesNotExist:
+        comment = Comment.objects.get(id = comment_id)
+    except Comment.DoesNotExist:
         return redirect('index')
     comment.delete()
     return redirect('index')

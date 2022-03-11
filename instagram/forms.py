@@ -1,6 +1,6 @@
 from pyexpat import model
 from django import forms
-from . models import Post,AddComments
+from . models import Post,Comment
 
 class PostCreate(forms.ModelForm):
     class Meta:
@@ -9,5 +9,5 @@ class PostCreate(forms.ModelForm):
 
 class CommentCreate(forms.ModelForm):
     class Meta:
-        model = AddComments
+        model = Comment
         fields = '__all__'
