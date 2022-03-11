@@ -1,8 +1,8 @@
 from distutils.command.upload import upload
 from django.http import HttpResponse
 from django.shortcuts import redirect, render
-from .models import Post
-from .forms import PostCreate
+from .models import AddComments, Post
+from .forms import PostCreate, CommentCreate
 
 def index(request):
     posts = Post.objects.all()
@@ -42,4 +42,26 @@ def delete_post(request, post_id):
     except Post.DoesNotExist:
         return redirect('index')
     posts.delete()
+    return redirect('index')
+
+def comment_post(request):
+    comment = CommentCreate()
+    if request.method == 'POST':
+        comment = CommentCreate(request.POST, request.FILES)
+        if comment.is_valid():
+            comment.save()
+            return redirect('index')
+        else:
+            return HttpResponse(""" Something went wrong <a href="{{url: 'index}}">Reload</a> """)
+
+    else:
+        return render(request, 'home/comment_form.html', {'comment_form': comment})
+
+def delete_comment(request, comment_id):
+    comment_id = int(comment_id)
+    try:
+        comment = AddComments.objects.get(id = comment_id)
+    except AddComments.DoesNotExist:
+        return redirect('index')
+    comment.delete()
     return redirect('index')

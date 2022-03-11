@@ -14,12 +14,12 @@
   </head>
   <body>
     <!-- Navbar -->
-  <nav class="p-6 bg-white shadow">
+  <nav class="p-6 bg-white shadow ">
     <a href="{% url 'index' %}" class="text-2xl cursor-pointer">X-Clone</a>
   </nav>
   </div>
-  <div>
-    <a href="{% url 'upload-post' %}">Post</a>
+  <div class="bg-blue-400 rounded-sm px-1 py-1 text-white cursor-pointer text-align-center">
+    <a class="flex items-center " href="{% url 'upload-post' %}">Post</a>
   </div>
     {% block content %}
     <div class="p-10 w-screen flex flex-col items-center">
@@ -51,12 +51,27 @@
         </div>
         <div class="flex items-center justify-evenly py-4">
           <div class="cursor-pointer"> <i class="fa-solid fa-heart"></i> Like</div>
-          <div>Comment</div>
-          <div>Share</div>
+          <center>
+            <a href="{% url 'comment-post' %}">Comment</a>
+          </center>
+          
         </div>
-        <div class="w-full">
+
+        <!-- Comment -->
+        {% for comment in post.comments.all %}
+        <div class="flex items-center justify-between px-3 py-4">
+          <div class="flex items-center gap-2">
+            <h2>Jaco Raven Miras: </h2>
+            {{comment.body}}
+          </div>
+          <span>
+            <a class="bg-red-400 text-white px-3 py-1 rounded-sm" href="deletecomment/{{comment.id}}">Delete</a>
+          </span>
+        </div>
+        {% endfor %}
+        <!-- <div class="w-full">
           <input class="outline-none w-full py-4 px-3" placeholder="Comment" type="text">
-        </div>
+        </div> -->
       </div>
       {% endfor %}
       {% endblock %}

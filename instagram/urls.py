@@ -8,6 +8,10 @@ urlpatterns = [
     path('upload/', views.upload, name='upload-post'),
     path('edit/<int:post_id>', views.edit_post),
     path('delete/<int:post_id>', views.delete_post),
+
+    path('comment/', views.comment_post, name='comment-post' ),
+    path('deletecomment/<int:comment_id>', views.delete_comment),
+
 ]
 
 if DEBUG:
