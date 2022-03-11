@@ -36,7 +36,6 @@ def edit_post(request, post_id):
         return redirect('index')
 
 def delete_post(request, post_id):
-    post_id = int(post_id)
     try:
         posts = Post.objects.get(id = post_id)
     except Post.DoesNotExist:
@@ -58,7 +57,6 @@ def comment_post(request):
         return render(request, 'home/comment_form.html', {'comment_form': comment})
 
 def delete_comment(request, comment_id):
-    comment_id = (comment_id)
     try:
         comment = Comment.objects.get(id = comment_id)
     except Comment.DoesNotExist:
